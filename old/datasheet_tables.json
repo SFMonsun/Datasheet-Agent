@@ -1,0 +1,554 @@
+[
+  {
+    "Characteristics": "InputSupplyVoltage",
+    "null": null,
+    "Symbol": "VIN",
+    "Rating": "18",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "LeadTemperature(Soldering,5seconds)",
+    "null": null,
+    "Symbol": "TLead",
+    "Rating": "260",
+    "Unit": "\u00b0C"
+  },
+  {
+    "Characteristics": "OperatingJunctionTemperatureRange",
+    "null": null,
+    "Symbol": "TJ",
+    "Rating": "150",
+    "Unit": "\u00b0C"
+  },
+  {
+    "Characteristics": "StorageTemperatureRange",
+    "null": null,
+    "Symbol": "Tstg",
+    "Rating": "-65~+150",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "PowerDissipation",
+    "null": null,
+    "Symbol": "PD",
+    "Rating": "InternallyLimited(Note1)",
+    "Unit": "mW"
+  },
+  {
+    "Characteristics": "ThermalResistancefrom\nJunctiontoAmbient",
+    "null": "SOT-223-3L",
+    "Symbol": "Rja",
+    "Rating": "88",
+    "Unit": "\u2103/W"
+  },
+  {
+    "Characteristics": null,
+    "null": "TO-252-2L",
+    "Symbol": null,
+    "Rating": "86",
+    "Unit": null
+  },
+  {
+    "Characteristics": null,
+    "null": "SOT-89-3L",
+    "Symbol": null,
+    "Rating": "102",
+    "Unit": null
+  },
+  {
+    "Characteristics": "ESDTolerance(Minimum)",
+    "null": null,
+    "Symbol": "ESD",
+    "Rating": "2000",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "Inputvoltage",
+    "Symbol": "VIN",
+    "Rating": "12",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "OperatingJunctionTemperatureRange",
+    "Symbol": "T\nJ",
+    "Rating": "-40~+125",
+    "Unit": "\u00b0C"
+  },
+  {
+    "Characteristics": "ReferenceVoltage",
+    "Symbol": "VREF",
+    "Conditions": "AMS1117-ADJ,\nIOUT=10mA,VIN-VOUT=2V,TJ=25\uf0b0C\n10mA\u2264I \u22641A,1.4V\u2264V -V \u226410V\nOUT IN OUT",
+    "Min.": "1.231\n1.225",
+    "Typ.": "1.250\n1.250",
+    "Max.": "1.268\n1.275",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "OutputVoltage",
+    "Symbol": "V\nOUT",
+    "Conditions": "AMS1117-1.2,\nIOUT=10m\u0391,VIN=3.2V,TJ=25\uf0b0C\n10mA\u2264IOUT\u22641A, 3.0V\u2264VIN\u226410V",
+    "Min.": "1.176\n1.152",
+    "Typ.": "1.2\n1.2",
+    "Max.": "1.224\n1.248",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": null,
+    "Symbol": null,
+    "Conditions": "AMS1117-1.5,\nIOUT=10m\u0391,VIN=3.5V,TJ=25\uf0b0C\n10mA\u2264I OUT\u22641A, 3.0V\u2264V IN\u226410V",
+    "Min.": "1.477\n1.470",
+    "Typ.": "1.500\n1.500",
+    "Max.": "1.5221\n.530",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": null,
+    "Symbol": null,
+    "Conditions": "AMS1117-1.8,\nIOUT=10mA,VIN=3.8V,TJ=25\uf0b0C,\n0\u2264IOUT\u22641A,3.2V\u2264VIN\u226410V",
+    "Min.": "1.7731\n.746",
+    "Typ.": "1.800\n1.800",
+    "Max.": "1.827\n1.854",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": null,
+    "Symbol": null,
+    "Conditions": "AMS1117-2.5,\nIOUT=10mA,VIN=4.5V,TJ=25\uf0b0C,\n0\u2264IOUT\u22641A,3.9V\u2264VIN\u226410V",
+    "Min.": "2.462\n2.450",
+    "Typ.": "2.500\n2.500",
+    "Max.": "2.538\n2.550",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": null,
+    "Symbol": null,
+    "Conditions": "AMS1117-3.3,\nIOUT=10mA,VIN=5V,TJ=25\uf0b0C,\n0\u2264I \u22641A,4.75V\u2264V \u226410V\nOUT IN",
+    "Min.": "3.250\n3.235",
+    "Typ.": "3.300\n3.300",
+    "Max.": "3.349\n3.365",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": null,
+    "Symbol": null,
+    "Conditions": "AMS1117-5.0,\nIOUT=10mA,VIN=7V,TJ=25\uf0b0C,\n0\u2264I \u22641A,6.5V\u2264V \u226412V\nOUT IN",
+    "Min.": "4.925\n4.900",
+    "Typ.": "5.000\n5.000",
+    "Max.": "5.075\n5.10",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "OutputVoltage\nTemperatureStability",
+    "Symbol": "TSOUT",
+    "Conditions": "",
+    "Min.": "--",
+    "Typ.": "0.3",
+    "Max.": "--",
+    "Unit": "%"
+  },
+  {
+    "Characteristics": "LineRegulation",
+    "Symbol": "Rline",
+    "Conditions": "VINMIN\u2264VIN\u226412V,\nV =Fixed/Adj,I =10mA\nOUT OUT",
+    "Min.": "--",
+    "Typ.": "9",
+    "Max.": "18",
+    "Unit": "mV"
+  },
+  {
+    "Characteristics": "LoadRegulation",
+    "Symbol": "Rload",
+    "Conditions": "10mA\u2264IOUT\u22641A,VOUT=Fixed/Adj",
+    "Min.": "--",
+    "Typ.": "10",
+    "Max.": "18",
+    "Unit": "mV"
+  },
+  {
+    "Characteristics": "DropoutVoltage",
+    "Symbol": "Vdrop",
+    "Conditions": "IOUT=100mA\nIOUT=500mA\nI =1A\nOUT",
+    "Min.": "--",
+    "Typ.": "1.00\n1.05\n1.20",
+    "Max.": "1.20\n1.25\n1.30",
+    "Unit": "V"
+  },
+  {
+    "Characteristics": "QuiescentCurrent",
+    "Symbol": "Iq",
+    "Conditions": "4.25V\u2264VIN\u22646.5V",
+    "Min.": "--",
+    "Typ.": "5",
+    "Max.": "10",
+    "Unit": "mA"
+  },
+  {
+    "Characteristics": "RippleRejection",
+    "Symbol": "PSRR",
+    "Conditions": "fRIPPLE=120Hz,(VIN-VOUT)=3V,\nVRIPPLE=1VPP",
+    "Min.": "60",
+    "Typ.": "75",
+    "Max.": "--",
+    "Unit": "dB"
+  },
+  {
+    "Characteristics": "AdjustpinCurrent",
+    "Symbol": "Iadj",
+    "Conditions": "",
+    "Min.": "--",
+    "Typ.": "60",
+    "Max.": "120",
+    "Unit": "\uf06dA"
+  },
+  {
+    "Characteristics": "AdjustpinCurrentChange",
+    "Symbol": "",
+    "Conditions": "0\u2264IOUT\u22641A,1.4V\u2264VIN-VOUT\u226410V",
+    "Min.": "--",
+    "Typ.": "0.2",
+    "Max.": "5",
+    "Unit": "\uf06dA"
+  },
+  {
+    "Characteristics": "Thermalshutdown",
+    "Symbol": "TSD",
+    "Conditions": "",
+    "Min.": "--",
+    "Typ.": "150",
+    "Max.": "--",
+    "Unit": "\u00b0C"
+  },
+  {
+    "Characteristics": "Currentlimitting",
+    "Symbol": "I\nlimit",
+    "Conditions": "",
+    "Min.": "2.1",
+    "Typ.": "--",
+    "Max.": "2.5",
+    "Unit": "A"
+  },
+  {
+    "Characteristics": "TemperatureStabiliy",
+    "Symbol": "",
+    "Conditions": "",
+    "Min.": "--",
+    "Typ.": "0.5",
+    "Max.": "--",
+    "Unit": "%"
+  },
+  {
+    "Characteristics": "LongTermStability",
+    "Symbol": "",
+    "Conditions": "TA=125\u00b0C,1000Hrs",
+    "Min.": "--",
+    "Typ.": "0.3",
+    "Max.": "--",
+    "Unit": "%"
+  },
+  {
+    "Characteristics": "RMSOutputNoise",
+    "Symbol": "",
+    "Conditions": "%ofV ,10Hz\u2264f\u226410kHz\nOUT",
+    "Min.": "--",
+    "Typ.": "0.003",
+    "Max.": "--",
+    "Unit": "%"
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "PinNo.": "1",
+    "Pinname": "GND/ADJ",
+    "I/O": "--/O",
+    "Functions": "Ground/ADJ"
+  },
+  {
+    "PinNo.": "2",
+    "Pinname": "VOUT",
+    "I/O": "O",
+    "Functions": "Outputvoltage"
+  },
+  {
+    "PinNo.": "3",
+    "Pinname": "VIN",
+    "I/O": "I",
+    "Functions": "Inputsupplyvoltage"
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": null,
+    "null": null,
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": null,
+    "null": null,
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": null,
+    "null": "",
+    "": null
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=10\uf06dF\nCOUT=10\uf06dFtantalum\nVIN=6.5V\nPreload=100mA": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": null,
+    "null": null,
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": null,
+    "null": "",
+    "": null
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "CIN=1\uf06dF\nCOUT=10\uf06dFtantalum\nIOUT=0.1A": "",
+    "null": "",
+    "": ""
+  },
+  {
+    "": "",
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": null,
+    "null": null
+  },
+  {
+    "": "",
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": null,
+    "null": null
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": "",
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": null,
+    "fRIPPLER=120Hz\nVRIPPLE\uf0a33Vpp": "",
+    "null": ""
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": "testresultofPCB"
+  },
+  {
+    "": null,
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": null
+  },
+  {
+    "": null
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "SOT-223-3L UNIT:mm": "5.90\uff5e6.70\n3.00\u00b10.20\n0.30\u00b10.10\n51.1\uff5e09.0\n0.25\n03.0\u00b105.3 03.0\u00b100.7\n2.30TYP 0.70- + 0 0 . . 1 1 0 5\n4.60\u00b10.15 0\uff5e10\u00b0\n01.0\uff5e00.0 51.0\u00b106.1 51.0\u00b156.1"
+  },
+  {
+    "SOT-223-3L UNIT:mm": "SOT-89-3L UNIT:mm"
+  },
+  {
+    "SOT-223-3L UNIT:mm": "4.50\u00b10.30\n1.50\u00b10.20\n04.0\u00b1551.4 03.0\u00b154.2\n02.0\u00b100.1\n0.48\u00b10.20 2-0.42\u00b10.20 0.40\u00b10.20\n3.00BSC"
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": ""
+  },
+  {
+    "": "",
+    "null": null
+  },
+  {
+    "": "",
+    "null": ""
+  },
+  {
+    "TO-252-2L UNIT:mm": "NOTE1\uff1aTherearetwoconditionsforthisposition:hasanejectpinorhasnoejectpin."
+  }
+]
