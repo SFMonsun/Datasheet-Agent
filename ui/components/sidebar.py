@@ -64,26 +64,74 @@ class DatasheetSidebar:
         with ui.dialog() as dialog, ui.card().style(f'background: {COLORS["surface"]}; min-width: 400px'):
             ui.label('Upload Datasheet').classes('text-xl font-bold mb-4').style(f'color: {COLORS["text"]}')
 
+            uploaded_files = []
+
             async def handle_upload(e: events.UploadEventArguments):
-                datasheet = self.file_handler.save_uploaded_file(e.content.name, e.name)
-                if datasheet:
-                    self.session_manager.add_datasheet(datasheet)
+                """Handle file upload and store for batch processing"""
+                import tempfile
+                import os
+
+                # Access file object (NiceGUI stores uploaded file in e.file)
+                if not hasattr(e, 'file') or e.file is None:
+                    ui.notify('Could not access uploaded file', type='negative')
+                    return
+
+                file_obj = e.file
+                filename = file_obj.name
+
+                # Create a temporary file with the same extension
+                file_ext = os.path.splitext(filename)[1]
+                with tempfile.NamedTemporaryFile(delete=False, suffix=file_ext) as temp_file:
+                    # Read content from file object (await the async read)
+                    content = await file_obj.read()
+                    temp_file.write(content)
+                    temp_path = temp_file.name
+
+                # Store for batch upload
+                uploaded_files.append({'temp_path': temp_path, 'filename': filename})
+
+            async def confirm_uploads():
+                """Process all uploaded files"""
+                if not uploaded_files:
+                    ui.notify('No files selected', type='warning')
+                    return
+
+                success_count = 0
+                for file_info in uploaded_files:
+                    try:
+                        datasheet = self.file_handler.save_uploaded_file(
+                            file_info['temp_path'],
+                            file_info['filename']
+                        )
+                        if datasheet:
+                            self.session_manager.add_datasheet(datasheet)
+                            success_count += 1
+                    finally:
+                        # Clean up temporary file
+                        import os
+                        if os.path.exists(file_info['temp_path']):
+                            os.unlink(file_info['temp_path'])
+
+                if success_count > 0:
                     await self.refresh_datasheets()
-                    ui.notify(f'Uploaded {e.name}', type='positive')
+                    ui.notify(f'Uploaded {success_count} datasheet(s)', type='positive')
                     dialog.close()
                 else:
-                    ui.notify('Failed to upload file', type='negative')
+                    ui.notify('Failed to upload files', type='negative')
 
             ui.upload(
                 on_upload=handle_upload,
-                auto_upload=True,
-                label='Choose file'
+                multiple=True,
+                label='Choose file(s)'
             ).props('accept=".pdf,.xlsx,.xls,.csv,.txt,.json"').classes('w-full').style(
                 f'color: {COLORS["text"]}'
             )
 
             with ui.row().classes('w-full justify-end gap-2 mt-4'):
-                ui.button('Cancel', on_click=dialog.close).props('flat')
+                ui.button('Cancel', on_click=dialog.close).props('flat').style(f'color: {COLORS["text_secondary"]}')
+                ui.button('Upload', on_click=confirm_uploads).props('flat').style(
+                    f'color: {COLORS["primary"]}'
+                )
 
         dialog.open()
 
@@ -188,7 +236,7 @@ class DatasheetSidebar:
                                 ui.icon('chevron_right').style(f'color: {COLORS["primary"]}')
 
             with ui.row().classes('w-full justify-end mt-4'):
-                ui.button('Cancel', on_click=dialog.close).props('flat')
+                ui.button('Cancel', on_click=dialog.close).props('flat').style(f'color: {COLORS["text_secondary"]}')
 
         dialog.open()
 

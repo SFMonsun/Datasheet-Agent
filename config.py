@@ -24,19 +24,19 @@ APP_CONFIG = {
     'show': True
 }
 
-# UI Colors and Styling
+# UI Colors and Styling - Dark Purple/Grey Theme
 COLORS = {
-    'primary': '#3b82f6',
-    'secondary': '#8b5cf6',
-    'success': '#10b981',
-    'warning': '#f59e0b',
-    'error': '#ef4444',
-    'background': '#0f172a',
-    'surface': '#1e293b',
-    'surface_light': '#334155',
-    'text': '#f1f5f9',
-    'text_secondary': '#94a3b8',
-    'border': '#475569'
+    'primary': '#8b7cc8',        # Medium purple
+    'secondary': '#6b5b95',      # Dark purple
+    'success': '#7c9885',        # Muted green-grey
+    'warning': '#c8a87c',        # Muted orange-grey
+    'error': '#c87c85',          # Muted red-grey
+    'background': '#1a1625',     # Very dark purple-black
+    'surface': '#2a2438',        # Dark purple-grey
+    'surface_light': '#3d3550',  # Medium purple-grey
+    'text': '#f5f3f7',           # Off-white with slight purple tint
+    'text_secondary': '#a89fb8', # Light purple-grey
+    'border': '#4a4158'          # Medium-dark purple-grey
 }
 
 # File upload settings
@@ -51,3 +51,55 @@ CHAT_CONFIG = {
     'placeholder': 'Ask me about your datasheets...',
     'not_implemented_msg': "I'm not implemented yet! 😊 But I'll be able to help you analyze datasheets soon."
 }
+
+# AI Agent settings
+AGENT_CONFIG = {
+    'api_key_file': DATA_DIR / '.api_key',  # Store API key securely
+    'model': 'claude-3-5-sonnet-20241022',
+    'max_tokens': 2048,
+    'provider': 'ollama',  # 'claude' or 'ollama' - set to ollama by default
+    'ollama_model': 'qwen3:8b',  # Changed to qwen3:8b (the model you have)
+    'ollama_url': 'http://localhost:11434',
+    'use_rag': True,  # Enable RAG pipeline for better datasheet processing
+}
+
+# Load API key if exists
+def get_api_key() -> str:
+    """Get API key from file or environment"""
+    # Try to load from file first
+    if AGENT_CONFIG['api_key_file'].exists():
+        with open(AGENT_CONFIG['api_key_file'], 'r') as f:
+            return f.read().strip()
+
+    # Try environment variable
+    api_key = os.getenv('ANTHROPIC_API_KEY', '')
+    return api_key
+
+def save_api_key(api_key: str) -> bool:
+    """Save API key to file"""
+    try:
+        with open(AGENT_CONFIG['api_key_file'], 'w') as f:
+            f.write(api_key)
+        return True
+    except Exception as e:
+        print(f"Error saving API key: {e}")
+        return False
+
+def get_provider() -> str:
+    """Get current AI provider"""
+    provider_file = DATA_DIR / '.provider'
+    if provider_file.exists():
+        with open(provider_file, 'r') as f:
+            return f.read().strip()
+    return AGENT_CONFIG['provider']
+
+def save_provider(provider: str) -> bool:
+    """Save AI provider preference"""
+    try:
+        provider_file = DATA_DIR / '.provider'
+        with open(provider_file, 'w') as f:
+            f.write(provider)
+        return True
+    except Exception as e:
+        print(f"Error saving provider: {e}")
+        return False

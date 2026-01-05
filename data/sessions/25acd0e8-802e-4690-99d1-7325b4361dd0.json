@@ -1,0 +1,44 @@
+{
+  "id": "25acd0e8-802e-4690-99d1-7325b4361dd0",
+  "name": "Session 2025-11-16 19:05",
+  "created_at": "2025-11-16T19:05:53.629213",
+  "datasheets": [
+    {
+      "id": "5a71dd46-c9dd-4df7-be59-874b2990d211",
+      "filename": "LM75B.pdf",
+      "filepath": "c:\\Users\\reneb\\Desktop\\Datasheet Agent\\data\\uploads\\5a71dd46-c9dd-4df7-be59-874b2990d211.pdf",
+      "upload_date": "2025-11-16T19:06:37.983448",
+      "file_size": 539694,
+      "file_type": "pdf",
+      "status": "active"
+    },
+    {
+      "id": "6faf36dd-d0b8-48f4-89ba-6b4c0c63f29f",
+      "filename": "Datasheet_SHTC3.pdf",
+      "filepath": "c:\\Users\\reneb\\Desktop\\Datasheet Agent\\data\\uploads\\6faf36dd-d0b8-48f4-89ba-6b4c0c63f29f.pdf",
+      "upload_date": "2025-11-16T19:06:37.984625",
+      "file_size": 743217,
+      "file_type": "pdf",
+      "status": "active"
+    },
+    {
+      "id": "4cf6b7ed-b78f-417c-9846-2c10c6029428",
+      "filename": "CCS811_Datasheet-DS000459.pdf",
+      "filepath": "c:\\Users\\reneb\\Desktop\\Datasheet Agent\\data\\uploads\\4cf6b7ed-b78f-417c-9846-2c10c6029428.pdf",
+      "upload_date": "2025-11-16T19:06:37.986793",
+      "file_size": 659856,
+      "file_type": "pdf",
+      "status": "active"
+    },
+    {
+      "id": "cb28bf82-93c8-47cb-a830-86bf8402ebfb",
+      "filename": "ina219.pdf",
+      "filepath": "c:\\Users\\reneb\\Desktop\\Datasheet Agent\\data\\uploads\\cb28bf82-93c8-47cb-a830-86bf8402ebfb.pdf",
+      "upload_date": "2025-11-16T19:06:37.987930",
+      "file_size": 860974,
+      "file_type": "pdf",
+      "status": "active"
+    }
+  ],
+  "chat_history": []
+}
