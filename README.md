@@ -2,6 +2,74 @@
 
 A sophisticated multi-agent system for analyzing electronic component datasheets using local LLMs (Ollama) or Claude API. The system employs a Retrieval-Augmented Generation (RAG) pipeline to provide accurate, cited answers from datasheet PDFs.
 
+
+# Problem Statement: Why an Agentic Datasheet Agent Is Sensible
+
+## Background
+
+Modern PCB projects routinely involve dozens to hundreds of components, each accompanied by extensive datasheets. These datasheets often span tens to hundreds of pages and include a mixture of critical specifications, edge-case constraints, reference designs, legal boilerplate, and marketing material.
+
+When using large language models or other AI-assisted tools to reason about PCB designs, component selection, or design reviews, datasheets are typically ingested wholesale into the context window. This approach quickly becomes impractical.
+
+## Core Problem
+
+**Context windows are finite, but datasheets are not.**
+
+Naively loading full datasheets into the context window leads to:
+
+- **Context flooding**: Large volumes of irrelevant or low-value information (e.g., ordering tables, repeated electrical characteristics, packaging options) overwhelm the model.
+- **Loss of global project awareness**: As datasheets consume the available context, higher-level project knowledge (overall PCB goals, constraints, prior decisions, trade-offs) is pushed out.
+- **Reduced reasoning quality**: With a cluttered context window, the model’s ability to reason about interactions between components, system-level constraints, and design intent degrades.
+- **Poor scalability**: As the PCB project grows, adding new components becomes increasingly expensive or impossible without sacrificing prior context.
+
+The result is an AI assistant that technically “has the data,” but is no longer useful for understanding or managing the PCB as a coherent system.
+
+## Why This Is a Structural Issue
+
+This problem cannot be solved by:
+- Larger context windows alone (they are still finite and costly)
+- Manual datasheet pruning (time-consuming, error-prone, and non-repeatable)
+- Static summaries (they fail to adapt to changing design questions)
+
+What is needed is **selective, on-demand access to datasheet knowledge**, not continuous full exposure.
+
+## The Role of an Agentic Datasheet Agent
+
+An agentic datasheet agent addresses this problem by acting as an intelligent intermediary between raw datasheets and the project-level reasoning context.
+
+Instead of flooding the context window, the agent:
+
+- Parses and indexes datasheets once
+- Extracts and retains *structured, queryable knowledge*
+- Surfaces only **relevant fragments** (parameters, constraints, application notes) when needed
+- Maintains links back to the source for traceability and verification
+
+This allows the main reasoning agent to:
+
+- Keep track of the **entire PCB project state**
+- Retain **design intent, constraints, and decisions** in-context
+- Pull in datasheet details **only when they are relevant to the current task**
+
+## Key Insight
+
+> The goal is not to fit all datasheets into the context window,  
+> but to ensure the *right* datasheet information appears at the *right* time.
+
+By decoupling datasheet storage from active reasoning context, an agentic datasheet agent enables scalable, coherent, and high-quality AI-assisted PCB design.
+
+## Summary
+
+An agentic datasheet agent is sensible because it:
+
+- Prevents context window saturation
+- Preserves system-level understanding of complex PCB projects
+- Improves reasoning quality and relevance
+- Scales naturally as project complexity grows
+
+Without such an agent, AI-assisted PCB design inevitably collapses under its own informational weight.
+
+
+
 ![Dark Purple Theme](https://img.shields.io/badge/Theme-Dark%20Purple-8b7cc8)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
