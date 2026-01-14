@@ -632,6 +632,121 @@ The orchestrator then synthesizes both responses into a comparison.
 
 ---
 
+## 🛡️ Guardrail System
+
+The orchestrator includes an intelligent guardrail system that prevents hallucination by refusing to answer questions about components not in the database.
+
+### How It Works
+
+#### 1. Component Detection
+
+When you ask a question, the system scans for electronic component part numbers using regex patterns:
+
+```python
+# Patterns detected:
+r'\b[A-Z]{2,4}\d{2,5}[A-Z]?\b'   # LM75B, INA219, STM32F4
+r'\b[A-Z]{2,3}-?\d{3,5}\b'        # AT-24C02, NE-555
+r'\b\d{2,3}[A-Z]{2,4}\d{2,4}\b'   # 74HC595
+```
+
+**False Positive Filtering:**
+
+The system ignores common protocol/interface names that match component patterns:
+- I2C, SPI, USB, GPIO, ADC, DAC, PWM, UART, LED, LCD, PCB
+
+#### 2. Database Matching
+
+After detecting component names, the system checks if any match the loaded datasheets:
+
+```
+User asks about: "STM32F4"
+                    ↓
+Loaded datasheets: [LM75B, INA219]
+                    ↓
+Match found? NO → Guardrail triggered
+```
+
+#### 3. Guardrail Response
+
+**Scenario A: No datasheets loaded**
+```
+I don't have any datasheets loaded in my database.
+
+You asked about: **STM32F4**
+
+Please upload the relevant datasheet(s) using the **+** button
+in the sidebar, and I'll be happy to help you with detailed
+information.
+```
+
+**Scenario B: Some datasheets loaded, but not the requested one**
+```
+I don't have **STM32F4** in my datasheet database.
+
+**Available components:**
+- LM75B
+- INA219
+
+Please upload the datasheet for **STM32F4** using the **+**
+button in the sidebar, or ask me about one of the components
+I have loaded.
+```
+
+### Why Guardrails Matter
+
+| Without Guardrails | With Guardrails |
+|-------------------|-----------------|
+| LLM might hallucinate specifications | Refuses to answer without data |
+| No indication data is unreliable | Clear message about missing datasheet |
+| User might trust incorrect info | User knows to upload the datasheet |
+| Could lead to design errors | Prevents misinformation |
+
+### Guardrail Behavior Examples
+
+| Question | Datasheets Loaded | Guardrail? | Behavior |
+|----------|------------------|------------|----------|
+| "What is the I2C address of LM75B?" | LM75B.pdf | No | Queries LM75B agent |
+| "What is the I2C address of STM32F4?" | LM75B.pdf | **Yes** | Refuses, lists available |
+| "What is I2C?" | LM75B.pdf | No | General knowledge answer |
+| "Compare LM75B and INA219" | Both loaded | No | Queries both agents |
+| "Tell me about the ATmega328" | LM75B.pdf | **Yes** | Refuses, suggests upload |
+
+### Console Output
+
+When a guardrail is triggered, you'll see in the console:
+
+```
+[Orchestrator] Found 0 relevant datasheets
+[Orchestrator] GUARDRAIL: Blocked query about unknown component(s): ['STM32F4']
+```
+
+### Customizing Detection Patterns
+
+To add custom component patterns, edit `_detect_component_query()` in `ollama_orchestrator_agent.py`:
+
+```python
+component_patterns = [
+    r'\b[A-Z]{2,4}\d{2,5}[A-Z]?\b',  # Standard ICs
+    r'\b[A-Z]{2,3}-?\d{3,5}\b',       # Hyphenated parts
+    r'\b\d{2,3}[A-Z]{2,4}\d{2,4}\b',  # 74-series logic
+    # Add your custom patterns here:
+    r'\bYOUR_PATTERN\b',
+]
+```
+
+To add false positives to ignore:
+
+```python
+false_positives = {
+    'I2C', 'SPI', 'USB', 'GPIO', 'ADC', 'DAC',
+    'PWM', 'UART', 'LED', 'LCD', 'PCB',
+    # Add more here:
+    'YOUR_TERM',
+}
+```
+
+---
+
 ## ⚙️ Configuration
 
 ### `config.py` Options

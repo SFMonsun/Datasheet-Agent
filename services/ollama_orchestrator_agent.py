@@ -1,4 +1,5 @@
 """Ollama Orchestrator Agent"""
+import re
 import aiohttp
 import asyncio
 from typing import List, Dict, Any
@@ -102,7 +103,6 @@ class OllamaOrchestratorAgent:
             # Split by word boundaries to check for exact component name
             if comp_name_lower in user_message_lower:
                 # Verify it's a word boundary match, not just substring
-                import re
                 if re.search(r'\b' + re.escape(comp_name_lower) + r'\b', user_message_lower):
                     matches.append(f"component name '{comp_info['name']}'")
 
@@ -124,6 +124,31 @@ class OllamaOrchestratorAgent:
         print(f"[Orchestrator] No specific component match found, orchestrator will answer without querying agents")
         return []
 
+    def _detect_component_query(self, user_message: str) -> tuple[bool, list[str]]:
+        """
+        Detect if the user is asking about specific electronic components.
+        Returns (is_component_query, detected_component_names)
+        """
+        # Common electronic component patterns (part numbers, IC names)
+        component_patterns = [
+            r'\b[A-Z]{2,4}\d{2,5}[A-Z]?\b',  # e.g., LM75B, INA219, STM32F4
+            r'\b[A-Z]{2,3}-?\d{3,5}\b',       # e.g., AT-24C02, NE-555
+            r'\b\d{2,3}[A-Z]{2,4}\d{2,4}\b',  # e.g., 74HC595
+        ]
+
+        detected_components = []
+        user_upper = user_message.upper()
+
+        for pattern in component_patterns:
+            matches = re.findall(pattern, user_upper)
+            detected_components.extend(matches)
+
+        # Remove duplicates and filter out common false positives
+        false_positives = {'I2C', 'SPI', 'USB', 'GPIO', 'ADC', 'DAC', 'PWM', 'UART', 'LED', 'LCD', 'PCB'}
+        detected_components = list(set([c for c in detected_components if c not in false_positives]))
+
+        return len(detected_components) > 0, detected_components
+
     async def chat(self, user_message: str) -> Dict[str, Any]:
         try:
             self.agent_interactions = []
@@ -132,6 +157,37 @@ class OllamaOrchestratorAgent:
             # Determine which datasheets are relevant
             relevant_datasheet_ids = await self._determine_relevant_datasheets(user_message)
             print(f"[Orchestrator] Found {len(relevant_datasheet_ids)} relevant datasheets")
+
+            # GUARDRAIL: Check if user is asking about a component not in our database
+            is_component_query, detected_components = self._detect_component_query(user_message)
+
+            if is_component_query and not relevant_datasheet_ids:
+                # User asked about a specific component but we don't have it
+                if not self.datasheet_agents:
+                    guardrail_response = (
+                        f"I don't have any datasheets loaded in my database.\n\n"
+                        f"You asked about: **{', '.join(detected_components)}**\n\n"
+                        f"Please upload the relevant datasheet(s) using the **+** button in the sidebar, "
+                        f"and I'll be happy to help you with detailed information."
+                    )
+                else:
+                    available_list = "\n".join([f"- {name}" for name in sorted(set([
+                        agent.get_component_info()['name'] for agent in self.datasheet_agents.values()
+                    ]))])
+                    guardrail_response = (
+                        f"I don't have **{', '.join(detected_components)}** in my datasheet database.\n\n"
+                        f"**Available components:**\n{available_list}\n\n"
+                        f"Please upload the datasheet for **{', '.join(detected_components)}** using the **+** button "
+                        f"in the sidebar, or ask me about one of the components I have loaded."
+                    )
+
+                print(f"[Orchestrator] GUARDRAIL: Blocked query about unknown component(s): {detected_components}")
+                return {
+                    'response': guardrail_response,
+                    'agent_interactions': self.agent_interactions,
+                    'rag_steps': self.rag_steps,
+                    'metadata': {'model': self.model, 'guardrail_triggered': True}
+                }
 
             # Query relevant datasheet agents
             datasheet_responses = []
